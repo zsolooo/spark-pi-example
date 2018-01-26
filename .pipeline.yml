@@ -1,64 +1,39 @@
 pipeline:
   create_cluster:
-    image: banzaicloud/pipeline-client:0.1.0
-    log_level: info
-    log_format: text
+    image: banzaicloud/plugin-pipeline-client:0.2.0
+# AWS
+    cluster_name: "plsparkpi001"
+    cluster_provider: "azure"
+# If you want to start cluster on Azure Cloud
+# Change cluster_provider to "azure" and setting up "azure_resource_group"
+# https://docs.microsoft.com/en-us/azure/azure-resource-manager/xplat-cli-azure-resource-manager
+    azure_resource_group: "puski_eastus"
 
-    cluster_name: "spark-pi-cluster"
-    cluster_location: "eu-west-1"
-    cluster_state: "created"
-
-    node_image: ami-294ffd50
-    node_instance_type: m4.xlarge
-    node_spot_price: 0.2
-    node_min_count: 1
-    node_max_count: 2
-
-    master_image: ami-294ffd50
-    master_instance_type: m4.xlarge
-
-    deployment_name: "pipeline-cluster-monitor"
-    deployment_release_name: "monitor"
-    deployment_state: "created"
-
-    secrets: [ plugin_endpoint, plugin_username, plugin_password]
+# Please set up these secrets on the CI/CD ui
+    secrets: [plugin_endpoint, plugin_username, plugin_password]
 
   remote_checkout:
-    image: banzaicloud/k8s-proxy:0.1.0
+    image: banzaicloud/plugin-k8s-proxy:0.2.0
     original_image: plugins/git
 
   remote_build:
-    image: banzaicloud/k8s-proxy:0.1.0
+    image: banzaicloud/plugin-k8s-proxy:0.2.0
     original_image: maven:3.5-jdk-8
     original_commands:
       - mvn clean package -s settings.xml
 
   prepare_spark_deps:
-    image: banzaicloud/pipeline-client:0.1.0
-    log_level: info
-    log_format: text
+    image: banzaicloud/plugin-pipeline-client:0.2.0
 
-    cluster_name: "spark-pi-cluster"
-    cluster_location: "eu-west-1"
-    cluster_state: "created"
-
-    node_image: ami-294ffd50
-    node_instance_type: m4.xlarge
-    node_spot_price: 0.2
-    node_min_count: 1
-    node_max_count: 2
-
-    master_image: ami-294ffd50
-    master_instance_type: m4.xlarge
-
-    deployment_name: "spark"
+    deployment_name: "banzaicloud-stable/spark"
     deployment_release_name: "spark"
     deployment_state: "created"
-    secrets: [ plugin_endpoint, plugin_username, plugin_password]
+    
+    secrets: [plugin_endpoint, plugin_username, plugin_password]
 
   run:
-    image: banzaicloud/k8s-proxy:0.1.0
-    original_image: banzaicloud/spark-submit-k8s:0.1.0
+    image: banzaicloud/plugin-k8s-proxy:0.2.0
+    original_image: banzaicloud/plugin-spark-submit-k8s:0.2.0
     pod_service_account: spark
     pull: true
     spark_deploy_mode: cluster
@@ -67,9 +42,9 @@ pipeline:
     spark_kubernetes_namespace: default
     spark_app_name: sparkpi
     spark_local_dir: /tmp/spark-local
-    spark_kubernetes_driver_docker_image: banzaicloud/spark-driver:v2.2.0-k8s-1.0.179
-    spark_kubernetes_executor_docker_image: banzaicloud/spark-executor:v2.2.0-k8s-1.0.179
-    spark_kubernetes_initcontainer_docker_image: banzaicloud/spark-init:v2.2.0-k8s-1.0.179
+    spark_kubernetes_driver_docker_image: banzaicloud/spark-driver:v2.2.0-k8s-1.0.197
+    spark_kubernetes_executor_docker_image: banzaicloud/spark-executor:v2.2.0-k8s-1.0.197
+    spark_kubernetes_initcontainer_docker_image: banzaicloud/spark-init:v2.2.0-k8s-1.0.197
     spark_dynamic_allocation: true
     spark_kubernetes_resourcestagingserver_uri: http://spark-rss:10000
     spark_kubernetes_resourcestagingserver_internal_uri: http://spark-rss:10000
