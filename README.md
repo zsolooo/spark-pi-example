@@ -12,7 +12,7 @@ In order for a project to be part of the Banzai Pipeline CI/CD workflow it **mus
 
 > In short: the configuration file contains the steps the project needs to go through the workflow from provisioning the environment, building the code, running tests to being deployed and executed along with project specific variables (eg.:credentials, program arguments, etc needed to assemble the execution command - `spark-submit` in this case).
 
-Depending on the chosen cloud provider we provide templates to be used to start ([.pipeline.yml.aws.template](.pipeline.yml.aws.template) and [.pipeline.yml.azure.template](.pipeline.yml.azure.template)) Make a copy of the appropriate template and name it *.pipeline.yml*
+Depending on the selected cloud provider we provide templates to start with ([.pipeline.yml.aws.template](.pipeline.yml.aws.template) and [.pipeline.yml.azure.template](.pipeline.yml.azure.template)) Make a copy of the appropriate template and rename it *.pipeline.yml*
 
 ## Set these secrets on the CI user interface
 
