@@ -1,12 +1,16 @@
 pipeline:
   create_cluster:
     image: banzaicloud/plugin-pipeline-client:latest
-    cluster_name: "[[your-cluster-name]]"
-    cluster_provider: "amazon"
+    cluster_name: "<gke-k8s-cluster-name>"
+    cluster_provider: "google"
+    google_project: "<google-project>"
+    google_gke_version: "1.8.7-gke.1"
+    google_node_count: "2"
 
     secrets: [plugin_endpoint, plugin_token]
 
   install_monitoring:
+    image: banzaicloud/plugin-pipeline-client:latest
     deployment_name: "banzaicloud-stable/pipeline-cluster-monitor"
     deployment_release_name: "monitor"
 
@@ -18,11 +22,11 @@ pipeline:
     deployment_name: "banzaicloud-stable/spark"
     deployment_release_name: "release-1"
     deployment_values:
-      historyServer:
+     historyServer:
         enabled: true
-      spark-hs:
-        app:
-          logDirectory: "s3a://[[your-s3-bucket/your-log-folder]]"
+     spark-hs:
+       app:
+         logDirectory: "gs://your-gs-bucket/your-folder"
 
     secrets: [plugin_endpoint, plugin_token]
 
@@ -32,9 +36,9 @@ pipeline:
 
   remote_build:
     image: banzaicloud/drone-plugin-k8s-client:latest
-    original_image: denvazh/scala:2.11.8
+    original_image: maven:3.5-jdk-8
     original_commands:
-      - sbt clean package
+      - mvn clean package
 
   run:
     image: banzaicloud/drone-plugin-k8s-client:latest
@@ -59,7 +63,7 @@ pipeline:
       spark.kubernetes.authenticate.driver.serviceAccountName: spark
       spark.metrics.conf: /opt/spark/conf/metrics.properties
       spark.eventLog.enabled: "true"
-      spark.eventLog.dir: "s3a://[[your-s3-bucket/your-log-folder]]"
+      spark.eventLog.dir: "gs://your-gs-bucket/your-folder"
     spark_submit_app_args:
       - target/spark-pi-1.0-SNAPSHOT.jar
       - 1000
