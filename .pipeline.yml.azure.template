@@ -8,6 +8,7 @@ pipeline:
     secrets: [plugin_endpoint, plugin_token]
 
   install_monitoring:
+    image: banzaicloud/plugin-pipeline-client:latest
     deployment_name: "banzaicloud-stable/pipeline-cluster-monitor"
     deployment_release_name: "monitor"
     deployment_values:
