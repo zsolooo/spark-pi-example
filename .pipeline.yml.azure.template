@@ -32,7 +32,7 @@ pipeline:
           azure_storage_account: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}"
           azure_storage_account_access_key: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
 
-    secrets: [plugin_endpoint, plugin_token]
+    secrets: [plugin_endpoint, plugin_token,plugin_azure_storage_account, plugin_azure_storage_account_access_key]
 
   remote_checkout:
     image: banzaicloud/drone-plugin-k8s-client:latest
@@ -55,9 +55,9 @@ pipeline:
     spark_submit_configs:
       spark.app.name: sparkpi
       spark.local.dir: /tmp/spark-locals
-      spark.kubernetes.driver.docker.image: banzaicloud/spark-driver:v2.2.0-k8s-1.0.210
-      spark.kubernetes.executor.docker.image: banzaicloud/spark-executor:v2.2.0-k8s-1.0.210
-      spark.kubernetes.initcontainer.docker.image: banzaicloud/spark-init:v2.2.0-k8s-1.0.210
+      spark.kubernetes.driver.docker.image: banzaicloud/spark-driver:v2.2.1-k8s-1.0.8
+      spark.kubernetes.executor.docker.image: banzaicloud/spark-executor:v2.2.1-k8s-1.0.8
+      spark.kubernetes.initcontainer.docker.image: banzaicloud/spark-init:v2.2.1-k8s-1.0.8
       spark.dynamicAllocation.enabled: "true"
       spark.kubernetes.resourceStagingServer.uri: http://spark-rss:10000
       spark.kubernetes.resourceStagingServer.internal.uri: http://spark-rss:10000

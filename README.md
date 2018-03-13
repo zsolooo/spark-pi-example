@@ -13,7 +13,7 @@ Spark Pi is a sample project to trigger a short lived Spark CI/CD workflow on Ba
 * fork the project into your repository
 * make a copy of the flow descriptor template corresponding to your chosen cloud provider:
 ```
-bash cp .pipeline.yml.[azure|aws|gke].template .pipeline.yml
+cp .pipeline.yml.[azure|aws|gke].template .pipeline.yml
 ```
 * check the flow descriptor file and replace the placeholders with your specific values (cluster name, bucket / folder names etc ...)
 
