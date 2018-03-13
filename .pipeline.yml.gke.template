@@ -1,9 +1,9 @@
 pipeline:
   create_cluster:
     image: banzaicloud/plugin-pipeline-client:latest
-    cluster_name: "<gke-k8s-cluster-name>"
+    cluster_name: "[[your-cluster-name]]"
     cluster_provider: "google"
-    google_project: "<google-project>"
+    google_project: "[[your-google-project]]"
     google_gke_version: "1.8.7-gke.1"
     google_node_count: "2"
 
@@ -20,7 +20,6 @@ pipeline:
     image: banzaicloud/plugin-pipeline-client:latest
 
     deployment_name: "banzaicloud-stable/spark"
-    deployment_release_name: "release-1"
     deployment_values:
      historyServer:
         enabled: true
