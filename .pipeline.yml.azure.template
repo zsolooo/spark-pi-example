@@ -11,10 +11,6 @@ pipeline:
     image: banzaicloud/plugin-pipeline-client:latest
     deployment_name: "banzaicloud-stable/pipeline-cluster-monitor"
     deployment_release_name: "monitor"
-    deployment_values:
-      prometheus:
-        nodeExporter:
-          enabled: true
 
     secrets: [plugin_endpoint, plugin_token]
 
@@ -39,9 +35,9 @@ pipeline:
 
   remote_build:
     image: banzaicloud/drone-plugin-k8s-client:latest
-    original_image: denvazh/scala:2.11.8
+    original_image: maven:3.5-jdk-8
     original_commands:
-      - sbt clean package
+      - mvn clean package
 
   run:
     image: banzaicloud/drone-plugin-k8s-client:latest

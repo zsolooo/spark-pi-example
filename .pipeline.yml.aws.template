@@ -32,9 +32,9 @@ pipeline:
 
   remote_build:
     image: banzaicloud/drone-plugin-k8s-client:latest
-    original_image: denvazh/scala:2.11.8
+    original_image: maven:3.5-jdk-8
     original_commands:
-      - sbt clean package
+      - mvn clean package
 
   run:
     image: banzaicloud/drone-plugin-k8s-client:latest
