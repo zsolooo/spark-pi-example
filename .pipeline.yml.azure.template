@@ -1,10 +1,9 @@
 pipeline:
   create_cluster:
     image: banzaicloud/plugin-pipeline-client:latest
-    cluster_name: "spark-pi-cluster"
+    cluster_name: "[[your-cluster-name]]"
     cluster_provider: "azure"
-    cluster_location: "eastus"
-    azure_resource_group: "az_resource_group"
+    azure_resource_group: "[[az_resource_group]]"
 
     secrets: [plugin_endpoint, plugin_token]
 
@@ -22,7 +21,6 @@ pipeline:
     image: banzaicloud/plugin-pipeline-client:latest
 
     deployment_name: "banzaicloud-stable/spark"
-    deployment_release_name: "release-1"
     deployment_values:
       historyServer:
         enabled: true
