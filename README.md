@@ -38,7 +38,7 @@ All the templates describe the following CI/CD flow:
 * Create a Kubernetes cluster
 * Set up monitoring on the cluster (optional, you can skip / remove this part from the template)
 * Install spark resources
-* Checkout the project 
+* Checkout the project
 * Build the SparkPi project (thie fork of this project)
 * Run the SparkPi application (issue a spark-submit command to the above set up environment)
 
@@ -49,7 +49,7 @@ Eg.: the *create_cluster* step:
 [Amazon]
 ```yaml
 create_cluster:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
     cluster_name: "[[your-cluster-name]]"
     cluster_provider: "amazon"
 
@@ -59,7 +59,7 @@ create_cluster:
 [Azure]
 ```yaml
 create_cluster:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
     cluster_name: "[[your-cluster-name]]"
     cluster_provider: "azure"
     azure_resource_group: "[[az_resource_group]]"
@@ -70,11 +70,11 @@ create_cluster:
 [Google Cloud]
 ```yaml
 create_cluster:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
     cluster_name: "[[your-cluster-name]]"
     cluster_provider: "google"
     google_project: "[[google-project]]"
-    
+
     secrets: [plugin_endpoint, plugin_token]
 ```
 
@@ -86,7 +86,7 @@ The other major difference is in the configuration related to the persistent sto
 [Amazon]
 ```yaml
 install_spark_resources:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
 
     deployment_name: "banzaicloud-stable/spark"
     deployment_values:
@@ -102,7 +102,7 @@ install_spark_resources:
 [Azure]
 ```yaml
 install_spark_resources:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
 
     deployment_name: "banzaicloud-stable/spark"
     deployment_values:
@@ -121,7 +121,7 @@ install_spark_resources:
 [Google Cloud]
 ```yaml
 install_spark_resources:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
 
     deployment_name: "banzaicloud-stable/spark"
     deployment_values:
@@ -133,5 +133,5 @@ install_spark_resources:
 
     secrets: [plugin_endpoint, plugin_token]
 ```
-> Note: currently the storage resources need to be set up manually in case of all cloud providers. In case of azure the 
+> Note: currently the storage resources need to be set up manually in case of all cloud providers. In case of azure the
 storage location is dynamically  assembled using the azure secrets.

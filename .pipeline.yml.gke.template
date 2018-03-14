@@ -1,6 +1,6 @@
 pipeline:
   create_cluster:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
     cluster_name: "[[your-cluster-name]]"
     cluster_provider: "google"
     google_project: "[[your-google-project]]"
@@ -10,14 +10,14 @@ pipeline:
     secrets: [plugin_endpoint, plugin_token]
 
   install_monitoring:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
     deployment_name: "banzaicloud-stable/pipeline-cluster-monitor"
     deployment_release_name: "monitor"
 
     secrets: [plugin_endpoint, plugin_token]
 
   install_spark_resources:
-    image: banzaicloud/plugin-pipeline-client:latest
+    image: banzaicloud/plugin-pipeline-client:0.3.0
 
     deployment_name: "banzaicloud-stable/spark"
     deployment_values:
@@ -30,18 +30,18 @@ pipeline:
     secrets: [plugin_endpoint, plugin_token]
 
   remote_checkout:
-    image: banzaicloud/drone-plugin-k8s-client:latest
+    image: banzaicloud/drone-plugin-k8s-client:0.3.0
     original_image: plugins/git
 
   remote_build:
-    image: banzaicloud/drone-plugin-k8s-client:latest
+    image: banzaicloud/drone-plugin-k8s-client:0.3.0
     original_image: maven:3.5-jdk-8
     original_commands:
       - mvn clean package
 
   run:
-    image: banzaicloud/drone-plugin-k8s-client:latest
-    original_image: banzaicloud/plugin-spark-submit-k8s:latest
+    image: banzaicloud/drone-plugin-k8s-client:0.3.0
+    original_image: banzaicloud/plugin-spark-submit-k8s:0.3.0
     proxy_service_account: spark
 
     spark_submit_options:
