@@ -25,7 +25,7 @@ pipeline:
         enabled: true
      spark-hs:
        app:
-         logDirectory: "gs://your-gs-bucket/your-folder"
+         logDirectory: "gs://[[your-gs-bucket/your-folder]]"
 
     secrets: [plugin_endpoint, plugin_token]
 
@@ -62,7 +62,7 @@ pipeline:
       spark.kubernetes.authenticate.driver.serviceAccountName: spark
       spark.metrics.conf: /opt/spark/conf/metrics.properties
       spark.eventLog.enabled: "true"
-      spark.eventLog.dir: "gs://your-gs-bucket/your-folder"
+      spark.eventLog.dir: "gs://[[your-gs-bucket/your-folder]]"
     spark_submit_app_args:
       - target/spark-pi-1.0-SNAPSHOT.jar
       - 1000
