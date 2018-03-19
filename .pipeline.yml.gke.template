@@ -31,17 +31,17 @@ pipeline:
     secrets: [plugin_endpoint, plugin_token]
 
   remote_checkout:
-    image: banzaicloud/drone-plugin-k8s-client:0.3.0
+    image: banzaicloud/plugin-k8s-proxy:0.3.0
     original_image: plugins/git
 
   remote_build:
-    image: banzaicloud/drone-plugin-k8s-client:0.3.0
+    image: banzaicloud/plugin-k8s-proxy:0.3.0
     original_image: maven:3.5-jdk-8
     original_commands:
       - mvn clean package
 
   run:
-    image: banzaicloud/drone-plugin-k8s-client:0.3.0
+    image: banzaicloud/plugin-k8s-proxy:0.3.0
     original_image: banzaicloud/plugin-spark-submit-k8s:0.3.0
     proxy_service_account: spark
 
