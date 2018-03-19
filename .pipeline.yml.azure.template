@@ -63,7 +63,7 @@ pipeline:
       spark.metrics.conf: /opt/spark/conf/metrics.properties
       spark.eventLog.enabled: "true"
       spark.eventLog.dir: "wasb://[[your-blob-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/[[your-log-folder]]"
-      spark_submit_app_args:
+    spark_submit_app_args:
       - target/spark-pi-1.0-SNAPSHOT.jar
       - 1000
 
