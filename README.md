@@ -39,7 +39,7 @@ All the templates describe the following CI/CD flow:
 * Set up monitoring on the cluster (optional, you can skip / remove this part from the template)
 * Install spark resources
 * Checkout the project
-* Build the SparkPi project (thie fork of this project)
+* Build the SparkPi project (the fork of this project)
 * Run the SparkPi application (issue a spark-submit command to the above set up environment)
 
 The templates only differ in the steps related to setting up the environment and using the cloud resources (storage, buckets, folders).
@@ -78,7 +78,7 @@ create_cluster:
     secrets: [plugin_endpoint, plugin_token]
 ```
 
-The *create_cluster* step listed above can be further customized by providing more details like the cluster location, instance type etc...
+The *create_cluster* step listed above can be further customised by providing more details like the cluster location, instance type etc...
 (more details [here](https://github.com/banzaicloud/drone-plugin-pipeline-client))
 
 The other major difference is in the configuration related to the persistent storage used by the spark (to write logs to) and the Spark History Server (to read from)
@@ -110,9 +110,9 @@ install_spark_resources:
         enabled: true
       spark-hs:
         app:
-          logDirectory: "wasb://spark-k8-logs@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/eventLog"
-          azure_storage_account: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}"
-          azure_storage_account_access_key: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
+          logDirectory: "wasb://spark-k8-logs@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/"
+          azureStorageAccountName: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}"
+          azureStorageAccountName: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
 
     secrets: [plugin_endpoint, plugin_token,plugin_azure_storage_account, plugin_azure_storage_account_access_key]
 
@@ -129,7 +129,7 @@ install_spark_resources:
         enabled: true
      spark-hs:
        app:
-         logDirectory: "gs://your-gs-bucket/your-folder"
+         logDirectory: "gs://your-gs-bucket/"
 
     secrets: [plugin_endpoint, plugin_token]
 ```
