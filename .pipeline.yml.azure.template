@@ -24,11 +24,11 @@ pipeline:
         enabled: true
       spark-hs:
         app:
-          logDirectory: "wasb://[[your-blob-container]]@{{ .AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/[[your-log-folder]]"
-          azure_storage_account: "{{ .AZURE_STORAGE_ACCOUNT }}"
-          azure_storage_account_access_key: "{{ .AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
+          logDirectory: "wasb://[[your-blob-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/"
+          azureStorageAccountName: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}"
+          azureStorageAccessKey: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
 
-    secrets: [plugin_endpoint, plugin_token, azure_storage_account, azure_storage_account_access_key]
+    secrets: [plugin_endpoint, plugin_token, plugin_azure_storage_account, plugin_azure_storage_account_access_key]
 
   remote_checkout:
     image: banzaicloud/plugin-k8s-proxy:0.3.0
@@ -63,9 +63,10 @@ pipeline:
       spark.kubernetes.authenticate.driver.serviceAccountName: spark
       spark.metrics.conf: /opt/spark/conf/metrics.properties
       spark.eventLog.enabled: "true"
-      spark.eventLog.dir: "wasb://[[your-blob-container]]@{{ .AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/[[your-log-folder]]"
+      spark.eventLog.dir: "wasb://[[your-blob-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/"
+      spark.hadoop.fs.azure.account.key.{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
     spark_submit_app_args:
       - target/spark-pi-1.0-SNAPSHOT.jar
       - 1000
 
-    secrets: [azure_storage_account, azure_storage_account_access_key]
+    secrets: [plugin_azure_storage_account, plugin_azure_storage_account_access_key]
