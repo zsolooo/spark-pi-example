@@ -94,7 +94,7 @@ install_spark_resources:
         enabled: true
       spark-hs:
         app:
-          logDirectory: "s3a://[[your-s3-bucket/your-log-folder]]"
+          logDirectory: "s3a://[[your-s3-bucket]]/"
 
     secrets: [plugin_endpoint, plugin_token]
 ```
@@ -110,7 +110,7 @@ install_spark_resources:
         enabled: true
       spark-hs:
         app:
-          logDirectory: "wasb://spark-k8-logs@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/"
+          logDirectory: "wasb://[your-blob-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/"
           azureStorageAccountName: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}"
           azureStorageAccountName: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
 
@@ -129,7 +129,7 @@ install_spark_resources:
         enabled: true
      spark-hs:
        app:
-         logDirectory: "gs://your-gs-bucket/"
+         logDirectory: "gs://[[your-gs-bucket]]/"
 
     secrets: [plugin_endpoint, plugin_token]
 ```
